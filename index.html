@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LoginApp</title>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <style>
+      html, body{
+        margin:0;
+        overflow: hidden;
+        box-shadow: 0 0 43px -25px #555555 inset;
+        height: 100%;
+      }
+
+      div.container{
+        width:25%;
+        margin: auto;
+        text-align: center;
+        margin-top:12%;
+      }
+
+      h1, h2, h3{
+        font-family:Pacifico;
+        font-size: 3em;
+        margin-bottom: 10px;
+        color:#676767;
+      }
+      form{
+        border: 1px solid #999999;
+        padding:10px;
+      }
+      input{
+        width:95%;
+        margin:5px;
+        font-family: "Courier New", Courier, monospace;
+        border-radius:0;
+        border: 1px solid #cbcbcb;
+        padding:3px;
+      }
+      button{
+        background-color: #676767;
+        border:2px solid white;
+        color: #fff;
+        padding:3px;
+        font-size:0.9em;
+        box-shadow: 0 0 0 1px #676767;
+        font-family: Verdana, Geneva, sans-serif;
+        margin:6px 3px 0 6px;
+
+      }
+      input:focus:required:invalid{
+        background-image: url("/img/field_warning.png");
+        background-position: right 4px center;
+        background-repeat: no-repeat;
+      }
+    </style>
+    <body>
+    <div class="container">
+      <h2>LoginApp</h2>
+      <form>
+        <input type="email" name="email" placeholder="email" required>
+        <input type="password" name="password" placeholder="password" required>
+        <button type="submit">Login</button>
+      </form>
+      </form>
+    </div>
+  </body>
+</html>
