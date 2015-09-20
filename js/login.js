@@ -62,13 +62,16 @@ function login(event){
     var jqxhr = $.ajax({
         type: method,
         url:'login.php',
-        data: form,
+        data: form
     }).success(function(resp){
       $("#message").slideUp(function(){
         if(method == "GET"){
           $('#message').removeClass("error").addClass("success");
           $("#message").html("We have sent an email to you");
           $("#message").slideDown();
+        }
+        else{
+          location.href="manage.php";
         }
       });//location.href=resp;
       

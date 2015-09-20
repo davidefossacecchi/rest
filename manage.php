@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if(!isset($_SESSION["user"])){
+    session_unset();
+    session_destroy();
+    header("Location: http://".$_SERVER['HTTP_HOST']);
+  }
+  else $user = $_SESSION["user"];
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,30 +16,28 @@
     <title>LoginApp</title>
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <style>
-      input[name="password_conf"]{
-        display: none;
-      }
-    </style>
     <body>
     <div class="container">
-      <h2>LoginApp</h2>
+      <h2>yourProfile</h2>
       <form>
         <span id="message" class="error">Incorrect username and/or password</span>
-        <input type="email" name="email" placeholder="email" required>
+        <input type="email" name="email" placeholder="email" value="<?php echo $user["username"]; ?>" required>
         <input type="password" name="password" placeholder="password" required>
         <input type="password" name="password_conf" placeholder="repeat password" required>
-        <button type="submit">Login</button>
+        <button type="submit">Edit</button>
       </form>
       <p style="text-align:left;">
         <ul>
-          <li id="register"><a href="">Sign up...</a></li>
-          <li id="login"><a href="">Login...</a></li>
-          <li id="recover"><a href="">Password recover...</a></li>
+          <li id="delete"><a href="">Delete...</a></li>
+          <li id="logout"><a href="logout.php">Logout...</a></li>
         </ul>
       </p>
     </div>
     <script src="js/jquery-2.1.3.min.js"></script>
-    <script src="js/login.js"></script>
+    <script>
+      var user_id = <?php echo $user["id"]; ?>;
+      var rest_path = "rest.php/"+user_id;
+    </script>
+    <script src="js/manage.js"></script>
   </body>
 </html>

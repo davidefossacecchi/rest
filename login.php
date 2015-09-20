@@ -41,7 +41,11 @@
 			if(isPresent($users, $username)){
 				$user = $users[$username];
 				$encPSW = md5($user["salt"].$_POST["password"]);
-				if($encPSW == $user["password"]) header("HTTP/1.1 200 OK");
+				if($encPSW == $user["password"]){
+					session_start();
+					$_SESSION["user"] = $user;
+					header("HTTP/1.1 200 OK");
+				}
 				else header("HTTP/1.1 401 Unathorized");
 			}
 			else header("HTTP/1.1 401 Unathorized");
@@ -60,8 +64,11 @@
 				$salt = generateSalt(10);
 				$encPSW = md5($salt.$put["password"]);
 				$recover = false;
-				$users[$username] = ["id" => $id, "username" => $username, "password" => $encPSW, "salt" => $salt, "recover"=>$recover];
+				$user = ["id" => $id, "username" => $username, "password" => $encPSW, "salt" => $salt, "recover"=>$recover];
+				$users[$username] = $user;
 				write($users);
+				session_start();
+				$_SESSION["user"] = $user;
 				header("HTTP/1.1 201 Created");
 			}
 		}
