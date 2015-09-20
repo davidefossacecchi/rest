@@ -10,7 +10,7 @@
       html, body{
         margin:0;
         overflow: hidden;
-        box-shadow: 0 0 43px -25px #555555 inset;
+        box-shadow: 0 0 200px -125px #555555 inset;
         height: 100%;
       }
 
@@ -55,16 +55,117 @@
         background-position: right 4px center;
         background-repeat: no-repeat;
       }
+      #message{
+        font-family: Verdana, Geneva, sans-serif;
+        font-size:0.8em;
+        color:red;
+        display: none;
+      }
+      input[name="password-conf"]{
+        display: none;
+      }
+      p{
+        text-align:left;
+        font-family: Verdana, Geneva, sans-serif;
+        font-size:0.8em;
+      }
+      ul{
+        list-style: none;
+        text-align:left;
+        padding-left:0;
+        font-family: Verdana, Geneva, sans-serif;
+        font-size:0.8em;
+        line-height: 1.6em;
+      }
+      #login{
+        display:none;
+      }
     </style>
     <body>
     <div class="container">
       <h2>LoginApp</h2>
       <form>
+        <span id="message">Incorrect username and/or password</span>
         <input type="email" name="email" placeholder="email" required>
         <input type="password" name="password" placeholder="password" required>
+        <input type="password" name="password-conf" placeholder="repeat password" required>
         <button type="submit">Login</button>
       </form>
-      </form>
+      <p style="text-align:left;">
+        <ul>
+          <li id="register"><a href="">Sign up...</a></li>
+          <li id="login"><a href="">Login...</a></li>
+          <li id="recover"><a href="">Password recover...</a></li>
+        </ul>
+      </p>
     </div>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script>
+
+      var method="POST";
+      $('button').click(function(event){login(event)});
+      
+      //eye candy for the register function
+      $('#register').click(function(event){
+        event.preventDefault();
+        method="PUT";
+        $('input[name="password"]').slideDown(function(){
+          $('input[name="password-conf"]').slideDown();
+          $('#register').slideUp(function(){
+            $('#login').slideDown();
+            $('#recover').slideDown(function(){
+              $('button[type="submit"]').html("Sign Up");
+            });
+          });
+        });
+      });
+
+      //eye candy for the login function
+      $('#login').click(function(event){
+        event.preventDefault();
+        method="POST";
+        $('input[name="password"]').slideDown(function(){
+          $('input[name="password-conf"]').slideUp();
+          $('#login').slideUp(function(){
+            $('#register').slideDown();
+            $('#recover').slideDown(function(){
+              $('button[type="submit"]').html("Login");
+            });
+          });
+        });
+      });
+
+      //eye candy for the recover function
+      $('#recover').click(function(event){
+        event.preventDefault();
+        method="GET";
+        $('input[name="password-conf"]').slideUp(function(){
+          $('input[name="password"]').slideUp();
+          $('#register').slideDown(function(){
+            $('#login').slideDown();
+            $('#recover').slideUp(function(){
+              $('button[type="submit"]').html("Recover");
+            });
+          });
+        });
+      });
+
+      function login(event){
+        event.preventDefault();
+        var form = $('form').serialize();
+        var jqxhr = $.ajax({
+            type: method,
+            url:'login.php',
+            data: form,
+        }).success(function(resp){
+          $("#message").slideDown();//location.href=resp;
+          //alert(jqxhr.status);
+        }).fail(function(data){
+          alert(jqxhr.status);
+        });
+
+        console.log(jqxhr);
+      }
+    </script>
   </body>
 </html>
