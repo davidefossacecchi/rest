@@ -24,7 +24,7 @@ form{
 }
 input{
   width:95%;
-  margin:5px;
+  margin:5px 0;
   font-family: "Courier New", Courier, monospace;
   border-radius:0;
   border: 1px solid #cbcbcb;
